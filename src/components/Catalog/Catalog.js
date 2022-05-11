@@ -1,38 +1,30 @@
-import React, {useState, useEffect} from 'react';
+import React, {useContext} from 'react';
 import './Catalog.scss';
 import Movie from '../Movie/Movie';
 import Pagination from '../Pagination/Pagination';
-import axios from 'axios';
+import Loader from '../Loader/Loader';
+import {Context} from '../../context';
 
 function Catalog(props) {
-    const [movies, setMovies] = useState([]);
-    const [totalResults, setTotalResults] = useState(0);
-
-    const getData = async () => {
-        const {data} = await axios.get('https://www.omdbapi.com/?i=tt3896198&apikey=8523cbb8&s=Batman')
-        setMovies(data.Search);
-        setTotalResults(data.totalResults);
-    }
-
-    useEffect(() => {
-        getData();
-    }, [])
-
+    const {isLoading, results, totalResults, searchTerm} = useContext(Context);
 
     return (
         <div className="catalog">
-            <div className="container">
-                <div className="search-results">
-                    You searched for: <span className="search-query">Batman</span>,
-                    <span className="search-count"> {totalResults}</span> result found
+            {isLoading ? <Loader/> : (
+                <div className="container">
+                    <div className="search-results">
+                        {searchTerm.length > 0
+                            && <p>You searched for: <span className="search-query">'{searchTerm}'</span>,
+                            <span className="search-count"> {totalResults !== undefined ? totalResults : 0}</span> result found</p>}
+                    </div>
+                    <div className="catalog-layout">
+                        {results !== undefined && results.map(({Title, Type, Year, Poster, imdbID}) => (
+                            <Movie key={imdbID} Title={Title} Type={Type} Year={Year} Poster={Poster} />
+                        ))}
+                    </div>
+                    {results !== undefined && results.length > 0 && <Pagination/>}
                 </div>
-                <div className="catalog-layout">
-                    {movies.map(({Poster, Title, Type, Year}) => (
-                        <Movie Poster={Poster} Title={Title} Type={Type} Year={Year}/>
-                    ))}
-                </div>
-                <Pagination/>
-            </div>
+            )}
         </div>
     );
 }

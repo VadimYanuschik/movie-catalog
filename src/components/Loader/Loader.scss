@@ -1,0 +1,47 @@
+.reverse-spinner {
+  position: absolute;
+  z-index: 10;
+  top: calc(50vh - 100px);
+  left: calc(50% - 50px);
+  height: 100px;
+  width: 100px;
+  border: 4px solid transparent;
+  border-top-color: #7209B7;
+  border-left-color: #7209B7;
+  border-radius: 50%;
+  -webkit-animation: spin 1.5s linear infinite;
+  animation: spin 1.5s linear infinite;
+}
+
+.reverse-spinner::before {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  content: "";
+  border: 4px solid transparent;
+  border-top-color: #9A3CD8;
+  border-left-color: #9A3CD8;
+  border-radius: 50%;
+  -webkit-animation: spinBack 1s linear infinite;
+  animation: spinBack 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinBack {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-720deg);
+  }
+}
