@@ -8,25 +8,16 @@ import useDebounce from '../../hooks/useDebounce';
 
 function Catalog(props) {
     const {isLoading, results, totalResults, searchTerm} = useContext(Context);
-    const [isTypingSearchTerm, setIsTypingSearchTerm] = useState(false);
 
     const debouncedSearchTerm = useDebounce(searchTerm, 500);
-
-    useEffect(() => {
-        if (debouncedSearchTerm) {
-            setIsTypingSearchTerm(false)
-        } else {
-            setIsTypingSearchTerm(true);
-        }
-    }, [debouncedSearchTerm]);
 
     return (
         <div className="catalog">
             {isLoading ? <Loader/> : (
                 <div className="container">
                     <div className="search-results">
-                        {!isTypingSearchTerm
-                            && <p>You searched for: <span className="search-query">'{searchTerm}'</span>,
+                        {!isLoading && debouncedSearchTerm
+                            && <p>You searched for: <span className="search-query">'{debouncedSearchTerm}'</span>,
                             <span className="search-count"> {totalResults !== undefined ? totalResults : 0}</span> result found</p>}
                     </div>
                     <div className="catalog-layout">
