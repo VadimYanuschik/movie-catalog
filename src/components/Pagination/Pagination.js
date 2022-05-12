@@ -1,13 +1,12 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import './Pagination.scss';
 import {Context} from '../../context';
 import paginate from '../../helpers/paginate';
-import searchMovies from '../../api/searchMovies';
 
 function Pagination(props) {
     const {totalResults, page, setPage} = useContext(Context);
     const pages = paginate(totalResults, page);
-    
+
     function handleClick(e) {
         let clickedPage = e.target.dataset.page
 
@@ -29,7 +28,7 @@ function Pagination(props) {
         <div className="pagination">
             <span onClick={handleClick} data-page={'prev'} className="pagination__link">&#60;</span>
             {
-                pages.pages.map((pageLink, index) => (
+                pages.pages.map((pageLink) => (
                     <span
                         onClick={handleClick}
                         data-page={pageLink}

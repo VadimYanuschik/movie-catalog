@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import './Header.scss';
 
 import { ReactComponent as UserIcon } from '../../assets/icons/user.svg';
@@ -10,6 +10,8 @@ import {Context} from '../../context';
 
 function Header(props) {
     const {setIsLoading, setResults, searchTerm, setSearchTerm, setTotalResults, page, setPage} = useContext(Context);
+    const [isModalShow, setIsModalShow] = useState(false);
+    const modal = useRef(null);
 
     const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
@@ -39,6 +41,10 @@ function Header(props) {
     }, [page])
 
 
+    function handleClick() {
+        setIsModalShow(!isModalShow)
+    }
+
     return (
         <div className="header">
             <div className="container">
@@ -49,10 +55,15 @@ function Header(props) {
                     type="text"
                     placeholder="Type something..."
                 />
-                <div className="user">
+                <div className="user" onClick={handleClick}>
                     <UserIcon/>
                     <span>Вадим Янущик</span>
                     <ArrowDown/>
+                    <div ref={modal} className={"user-modal " + (isModalShow ? 'active' : null)}>
+                        <ul>
+                            <li>Log out</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
