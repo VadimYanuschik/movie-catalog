@@ -9,8 +9,7 @@ import searchMovies from '../../api/searchMovies';
 import {Context} from '../../context';
 
 function Header(props) {
-    const {setIsLoading, setResults, searchTerm, setSearchTerm, setTotalResults} = useContext(Context);
-
+    const {setIsLoading, setResults, searchTerm, setSearchTerm, setTotalResults, page, setPage} = useContext(Context);
 
     const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
@@ -18,8 +17,9 @@ function Header(props) {
         if (debouncedSearchTerm) {
             setIsLoading(true);
 
-            searchMovies(debouncedSearchTerm).then(results => {
+            searchMovies(debouncedSearchTerm, page).then(results => {
                 setIsLoading(false);
+                setPage(1);
                 setResults(results.Search);
                 setTotalResults(results.totalResults);
             });
@@ -27,6 +27,16 @@ function Header(props) {
             setResults([]);
         }
     }, [debouncedSearchTerm]);
+
+    useEffect(() => {
+        setIsLoading(true);
+
+        searchMovies(searchTerm, page).then(results => {
+            setIsLoading(false);
+            setResults(results.Search);
+            setTotalResults(results.totalResults);
+        });
+    }, [page])
 
 
     return (

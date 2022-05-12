@@ -1,8 +1,8 @@
 // Функция поиска по АПИ
-export default function searchMovies(search) {
+export default function searchMovies(search, page = 1) {
     const apiKey = '8523cbb8';
     return fetch(
-        `https://www.omdbapi.com/?apikey=${apiKey}&s=${search}`,
+        `https://www.omdbapi.com/?apikey=${apiKey}&s=${search}&page=${page}`,
         {
             method: 'GET'
         }
