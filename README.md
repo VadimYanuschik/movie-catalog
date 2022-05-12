@@ -2,7 +2,7 @@
 
 для запуска `npm start`
 
-ссылочка на github-pages [link]()
+ссылочка на github-pages [link](https://vadimyanuschik.github.io/movie-catalog/)
 
 * Каждый значимый элемент является компонентом;
 * Не используются UI фреймворки, только SCSS;
