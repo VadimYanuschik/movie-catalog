@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import './Pagination.scss';
 import {Context} from '../../context';
 import paginate from '../../helpers/paginate';
+import validatePageChange from '../../helpers/validatePageChange';
 
 function Pagination(props) {
     const {totalResults, page, setPage} = useContext(Context);
@@ -10,18 +11,8 @@ function Pagination(props) {
     function handleClick(e) {
         let clickedPage = e.target.dataset.page
 
-        if (clickedPage === 'prev') {
-            if(Number(page) === 1) setPage(1)
-            if(Number(page) !== pages.startPage) setPage(Number(page) - 1);
-        }
-        if (clickedPage === 'next') {
-            if(Number(page) === pages.totalPages) setPage(pages.totalPages);
-            if(Number(page) !== pages.totalPages) setPage(Number(page) + 1);
-
-        }
-        if (clickedPage !== 'prev' && clickedPage !== 'next') {
-            setPage(clickedPage);
-        }
+        let validatedPage = validatePageChange(clickedPage, page, pages);
+        setPage(validatedPage);
     }
 
     return (
