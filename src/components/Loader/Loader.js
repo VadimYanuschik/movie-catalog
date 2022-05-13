@@ -1,7 +1,7 @@
 import React from 'react';
 import './Loader.scss';
 
-const MyComponent = () => {
+const Loader = () => {
     return (
         <div>
             <div className="reverse-spinner"></div>
@@ -9,4 +9,4 @@ const MyComponent = () => {
     );
 };
 
-export default MyComponent;
+export default Loader;

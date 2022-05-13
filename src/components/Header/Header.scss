@@ -20,55 +20,10 @@
     font-size: 24px;
   }
 
-  .search-bar {
-    font-size: 16px;
-    color: #000000;
-    height: 34px;
-    padding: 16px 7px;
-    max-width: 610px;
-    width: 100%;
-  }
-
-  .user {
-    position: relative;
-    cursor: pointer;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-    width: 170px;
-
-    span {
-      white-space: nowrap;
-    }
-
-    .user-modal {
-      display: none;
-      position: absolute;
-      top: 120%;
-      z-index: 10;
-      right: 0;
-      padding: 10px;
-      background-color: black;
-      width: 100%;
-
-      ul {
-        list-style-type: none;
-      }
-      &.active {
-        display: block;
-      }
-    }
-  }
-
   @media (max-width: 650px) {
     .container {
       flex-direction: column;
       padding: 10px;
-
-      .user {
-        margin-left: auto;
-      }
     }
   }
 }
